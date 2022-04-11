@@ -1,5 +1,6 @@
 # E7 Secret Shop Auto Refresh Macro
 This macro helps with refresh E7 secret shop for bookmarks. This code is heavily referenced from Epic_Scripted's E7-Auto-Shop-Refresh-Custom: https://github.com/EpicScipted/E7-Auto-Shop-Refresh-Custom
+
 The original script is made by EmaOlay : https://github.com/EmaOlay/E7-Auto-Shop-Refresh
 
 ## How to Run:
