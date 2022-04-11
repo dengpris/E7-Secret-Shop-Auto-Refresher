@@ -30,11 +30,11 @@ def click(x,y):
 
 # use for debugging, this sets delay between clicking refresh and confirm
 # 0 default, set to 1-2 seconds when testing (so you can click q to exit if script goes wrong)
-debug_timer = 0
+debug_timer = 0.5
 
 #Specify how long this program should be run for
-run_timeout = int(input("How long should this macro be run for? (Enter in minutes)"))*60
-start_time = time()
+run_timeout = int(input("How long should this macro be run for? (Enter in minutes): "))*60
+start_time = time.time()
 
 timeout = 5 #if program hangs for 5 seconds, terminate
 time.sleep(2) #wait 2 seconds in case user needs to click into bluestacks
@@ -58,23 +58,23 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
         print("Buy Covenant Summons.")
         
         #Locate buy button
-	Coven_point=pyautogui.center(Coven_pos)
+        Coven_point=pyautogui.center(Coven_pos)
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
         
 	#Confirm buy
-	timeout_start = time.time() 
-	while(time.time() < (timeout_start + timeout)):
+        timeout_start = time.time() 
+        while(time.time() < (timeout_start + timeout)):
             Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
             if (Buy_button_Covenant_pos != None):
                 break
-        
-	Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
+
+        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
-    
-     else:
+
+    else:
         print("No Covenant summons to buy.")       
 
 #checks for mystic
@@ -83,19 +83,19 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
         print("Buy Mystic Summons.")
 	
         #Locate buy button
-	Mystic_point=pyautogui.center(Mystic_pos)
+        Mystic_point=pyautogui.center(Mystic_pos)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         time.sleep(random.uniform(0.2, 0.5)) #wait for confirm button
         
 	#Confirm buy
-	timeout_start = time.time() 
-	while(time.time() < (timeout_start + timeout)):
+        timeout_start = time.time()
+        while(time.time() < (timeout_start + timeout)):
             Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
             if (Buy_button_Mystic_pos != None):
                 break
-        
-	Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
+
+        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         
@@ -124,13 +124,13 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
 
         #Confirm buy
-	timeout_start = time.time() 
+        timeout_start = time.time() 
         while(time.time() < (timeout_start + timeout)):
             Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
             if (Buy_button_Covenant_pos != None):
                 break
-        
-	Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
+
+        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
 	
@@ -143,18 +143,18 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
         print("Buy Mystic Summons.")
         
         #Locate buy button
-	Mystic_point=pyautogui.center(Mystic_pos2)
+        Mystic_point=pyautogui.center(Mystic_pos2)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         time.sleep(random.uniform(0.2, 0.3)) #wait for confirm button
 
         #Confirm Buy
-        timeout_start = time.time()  
-	while(time.time() < (timeout_start + timeout)):
+        timeout_start = time.time()
+        while(time.time() < (timeout_start + timeout)):
             Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
             if (Buy_button_Mystic_pos != None):
                 break
-        
-	Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
+
+        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
 	
@@ -162,7 +162,7 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
         print("No Mystic summons to buy.")
         
 #Finally refreshes
-    time.sleep(random.uniform(0.2, 0.3))
+    #time.sleep(random.uniform(0.2, 0.3))
 #When testing, pause to allow user to exit
     debug_time_start = time.time()
     while (time.time() < debug_time_start+debug_timer):
@@ -170,8 +170,8 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
             quit
     
     RB_point=pyautogui.center(RB_pos)
-    click(RB_point[0], RB_point[1])
-    click(RB_point[0], RB_point[1])
+    click(RB_point[0]+rand_x, RB_point[1]+rand_y)
+    click(RB_point[0]+rand_x, RB_point[1]+rand_y)
     time.sleep(0.1) #wait for confirm to appear
     
     timeout_start = time.time()
