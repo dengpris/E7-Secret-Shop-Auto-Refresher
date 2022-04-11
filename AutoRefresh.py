@@ -33,8 +33,7 @@ def click(x,y):
 debug_timer = 0
 
 #Specify how long this program should be run for
-usr_input = input("How long should this macro be run for? (Enter in minutes)")
-run_timeout = usr_input*60
+run_timeout = int(input("How long should this macro be run for? (Enter in minutes)"))*60
 start_time = time()
 
 timeout = 5 #if program hangs for 5 seconds, terminate
