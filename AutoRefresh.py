@@ -32,8 +32,12 @@ def click(x,y):
 # 0 default, set to 1-2 seconds when testing (so you can click q to exit if script goes wrong)
 debug_timer = 0
 
-first_iteration = 1
-timeout = 5
+#Specify how long this program should be run for
+usr_input = input("How long should this macro be run for? (Enter in minutes)")
+run_timeout = usr_input*60
+start_time = time()
+
+timeout = 5 #if program hangs for 5 seconds, terminate
 time.sleep(2) #wait 2 seconds in case user needs to click into bluestacks
 
 #Locate refresh button
@@ -42,8 +46,8 @@ RB_pos=pyautogui.locateOnScreen('refresh_button.png',confidence=0.8)
 if (RB_pos == None):
     print("Error: Refresh button not found.")
     quit
-    
-while keyboard.is_pressed('q') == False:
+
+while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_timeout)):
     #The confidence is added due to little variations in the background
     Coven_pos=pyautogui.locateOnScreen('covenant.png',confidence=0.8)
     Mystic_pos=pyautogui.locateOnScreen('mystic.png',confidence=0.8)   
