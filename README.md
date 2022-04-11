@@ -1,6 +1,9 @@
 # E7 Secret Shop Auto Refresh Macro
-This macro helps with refresh E7 secret shop for bookmarks. This code is heavily referenced from Epic_Scripted's E7-Auto-Shop-Refresh-Custom: https://github.com/EpicScipted/E7-Auto-Shop-Refresh-Custom
-The original script is made by EmaOlay : https://github.com/EmaOlay/E7-Auto-Shop-Refresh
+This macro helps the user refresh the Secret Shop and buy Covenant and Mystic bookmarks. The mouse clicks and delay intervals are randomized to avoid Epic Seven detecting the use of third-party software. 
+
+This code is heavily referenced from Epic_Scripted's [E7-Auto-Shop-Refresh-Custom](https://github.com/EpicScipted/E7-Auto-Shop-Refresh-Custom), as well as the [original script](https://github.com/EmaOlay/E7-Auto-Shop-Refresh) is made by EmaOlay.
+
+[![Watch the video](https://i.imgur.com/guAqhAF.png)](https://i.imgur.com/XU3MSgI.mp4)
 
 ## How to Run:
 1. Make sure you have Python and the correct dependencies installed (see below)
@@ -15,9 +18,11 @@ The original script is made by EmaOlay : https://github.com/EmaOlay/E7-Auto-Shop
 	If the macro is not recognizing the images properly, you will need to replace the images in the folder with your own screenshots
 7. To exit the script, hold 'q' until the macro stops working completely
 
-## Dependencies to Install:
-- Python, PIP (https://pip.pypa.io/en/stable/installation/)
-- pip install keyboard
-- pip install opencv-python
-- pip install pyautogui
-- pip install mouse
+## Dependencies to Install
+Use the package manager [pip](https://pip.pypa.io/en/stable/installation/) to install the following dependencies:
+```
+pip install keyboard
+pip install opencv-python
+pip install pyautogui
+pip install mouse
+```
