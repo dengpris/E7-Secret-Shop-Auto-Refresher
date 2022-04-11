@@ -61,7 +61,10 @@ while keyboard.is_pressed('q') == False:
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
-        Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png')
+        while(time.time() < (timeout_start + timeout)):
+            Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
+            if (Buy_button_Covenant_pos != None):
+                break
         Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
@@ -78,7 +81,10 @@ while keyboard.is_pressed('q') == False:
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         time.sleep(random.uniform(0.2, 0.5)) #wait for confirm button
-        Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png')
+        while(time.time() < (timeout_start + timeout)):
+            Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
+            if (Buy_button_Mystic_pos != None):
+                break
         Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
@@ -108,7 +114,10 @@ while keyboard.is_pressed('q') == False:
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
 
         #Confirm buy
-        Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png')
+        while(time.time() < (timeout_start + timeout)):
+            Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
+            if (Buy_button_Covenant_pos != None):
+                break
         Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
@@ -126,7 +135,11 @@ while keyboard.is_pressed('q') == False:
         time.sleep(random.uniform(0.2, 0.3)) #wait for confirm button
 
         #Confirm Buy
-        Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png')
+        timeout_start = time.time()
+        while(time.time() < (timeout_start + timeout)):
+            Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
+            if (Buy_button_Mystic_pos != None):
+                break
         Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
