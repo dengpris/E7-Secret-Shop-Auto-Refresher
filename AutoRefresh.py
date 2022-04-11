@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Sun Apr 10 2022
 
@@ -28,7 +27,6 @@ def click(x,y):
 #If starting the macro from terminal, MAKE SURE REFRESH BUTTON IS VISIBLE
 
 #If you run out of gold or skystones, macro should exit
-    #Note: THIS HAS NOT BEEN TESTED
 
 # use for debugging, this sets delay between clicking refresh and confirm
 # 0 default, set to 1-2 seconds when testing (so you can click q to exit if script goes wrong)
@@ -55,37 +53,46 @@ while keyboard.is_pressed('q') == False:
 #Checks for covenant
     if (Coven_pos) != None:       
         print("Buy Covenant Summons.")
-        Coven_point=pyautogui.center(Coven_pos)
-        #print("La pos en x seria...",Coven_point[0],"\nLa pos en y seria...", Coven_point[1])
-        #Respecto de la pos original +800 en x y mas 50 en y es aprox donde esta el boton cuando el juego esta full screen
+        
+        #Locate buy button
+	Coven_point=pyautogui.center(Coven_pos)
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
-        while(time.time() < (timeout_start + timeout)):
+        
+	#Confirm buy
+	timeout_start = time.time() 
+	while(time.time() < (timeout_start + timeout)):
             Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
             if (Buy_button_Covenant_pos != None):
                 break
-        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
+        
+	Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
-    else:
+    
+     else:
         print("No Covenant summons to buy.")       
 
 #checks for mystic
     if (Mystic_pos != None):
         time.sleep(random.uniform(0.2, 0.4))      
         print("Buy Mystic Summons.")
-        Mystic_point=pyautogui.center(Mystic_pos)
-        #print("La pos en x seria...",Mystic_point[0],"\nLa pos en y seria...", Mystic_point[1])
-        #Respecto de la pos original +800 en x y mas 50 en y es aprox donde esta el boton cuando el juego esta full screen
+	
+        #Locate buy button
+	Mystic_point=pyautogui.center(Mystic_pos)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         time.sleep(random.uniform(0.2, 0.5)) #wait for confirm button
-        while(time.time() < (timeout_start + timeout)):
+        
+	#Confirm buy
+	timeout_start = time.time() 
+	while(time.time() < (timeout_start + timeout)):
             Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
             if (Buy_button_Mystic_pos != None):
                 break
-        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
+        
+	Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         
@@ -114,13 +121,16 @@ while keyboard.is_pressed('q') == False:
         time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
 
         #Confirm buy
+	timeout_start = time.time() 
         while(time.time() < (timeout_start + timeout)):
             Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
             if (Buy_button_Covenant_pos != None):
                 break
-        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
+        
+	Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
         click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
+	
     else:
         print("No Covenant summons to buy.")
         
@@ -128,21 +138,23 @@ while keyboard.is_pressed('q') == False:
     if ((Mystic_pos2 != None) and (Mystic_pos == None)):
         time.sleep(0.2)        
         print("Buy Mystic Summons.")
-        Mystic_point=pyautogui.center(Mystic_pos2)
-        #print("La pos en x seria...",Mystic_point[0],"\nLa pos en y seria...", Mystic_point[1])
-        #Respecto de la pos original +800 en x y mas 50 en y es aprox donde esta el boton cuando el juego esta full screen
+        
+        #Locate buy button
+	Mystic_point=pyautogui.center(Mystic_pos2)
         click(Mystic_point[0]+800, Mystic_point[1]+40)
         time.sleep(random.uniform(0.2, 0.3)) #wait for confirm button
 
         #Confirm Buy
-        timeout_start = time.time()
-        while(time.time() < (timeout_start + timeout)):
+        timeout_start = time.time()  
+	while(time.time() < (timeout_start + timeout)):
             Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
             if (Buy_button_Mystic_pos != None):
                 break
-        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
+        
+	Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
         click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
+	
     else:
         print("No Mystic summons to buy.")
         
@@ -165,6 +177,7 @@ while keyboard.is_pressed('q') == False:
         if (Confirm_pos != None):
             break
 
+#Confirm refresh
     Confirm_point=pyautogui.center(Confirm_pos)
     click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
     click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
