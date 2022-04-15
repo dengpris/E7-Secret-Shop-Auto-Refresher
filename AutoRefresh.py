@@ -7,15 +7,58 @@ Created on Sun Apr 10 2022
 from pyautogui import *
 import pyautogui
 import time
+import datetime
 import keyboard
 import random
 import win32api, win32con
+import sys
+
+############### HELPER FUNCTIONS ###############
 
 def click(x,y):
     win32api.SetCursorPos((x,y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
     time.sleep(0.4)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+
+def buy(bookmark):
+    bought = False
+    buy_start = time.time() 
+
+    while((bought == False) and (time.time()< (buy_start + timeout))):
+        if (bookmark == 'covenant'):
+            pos = pyautogui.locateOnScreen('covenant.png',confidence=0.8)
+        else:
+            pos = pyautogui.locateOnScreen('mystic.png',confidence=0.8)
+
+        pos_point = pyautogui.center(pos)
+        #click buy
+        click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
+        click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
+        time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
+
+        #Confirm buy
+        timeout_start = time.time() 
+        while(time.time() < (timeout_start + timeout)):
+            if (bookmark == 'covenant'):
+                Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
+            else:
+                Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
+
+            if (Buy_button_pos != None):
+                Buy_button_point=pyautogui.center(Buy_button_pos)
+                click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
+                click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
+
+                bought = True
+                break
+
+    #if bought is not true here, something went wrong
+    if (bought == False):
+        sys.exit("Bookmark found but not bought")
+        
+################# HELPERS END #################
+
 
 #BEFORE USING THE MACRO it is recommended to first test the program
 #If there are bookmarks in shop and the program does not detect it --
@@ -31,13 +74,15 @@ def click(x,y):
 # use for debugging, this sets delay between clicking refresh and confirm
 # 0 default, set to 1-2 seconds when testing (so you can click q to exit if script goes wrong)
 debug_timer = 0.5
+exit_flag = 0
+time.sleep(2) #wait 2 seconds in case user needs to click into bluestacks
 
 #Specify how long this program should be run for
-run_timeout = int(input("How long should this macro be run for? (Enter in minutes): "))*60
+run_timeout = float(input("How long should this macro be run for? (Enter in minutes): "))*60
 start_time = time.time()
+start_datetime = datetime.datetime.now()
 
 timeout = 5 #if program hangs for 5 seconds, terminate
-time.sleep(2) #wait 2 seconds in case user needs to click into bluestacks
 
 #Locate refresh button
 RB_pos=pyautogui.locateOnScreen('refresh_button.png',confidence=0.8)
@@ -46,7 +91,12 @@ if (RB_pos == None):
     print("Error: Refresh button not found.")
     quit
 
-while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_timeout)):
+#Counter (will tell you how many mystics/covenants were bought at the end)
+mystic_count = 0
+covenant_count = 0
+refresh_count = 0
+
+while ((exit_flag == 0) and (time.time() < start_time+run_timeout)):
     #The confidence is added due to little variations in the background
     Coven_pos=pyautogui.locateOnScreen('covenant.png',confidence=0.8)
     Mystic_pos=pyautogui.locateOnScreen('mystic.png',confidence=0.8)   
@@ -56,53 +106,24 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
 #Checks for covenant
     if (Coven_pos) != None:       
         print("Buy Covenant Summons.")
-        
-        #Locate buy button
-        Coven_point=pyautogui.center(Coven_pos)
-        click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
-        click(Coven_point[0]+800+rand_x, Coven_point[1]+40+rand_y)
-        time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
-        
-	#Confirm buy
-        timeout_start = time.time() 
-        while(time.time() < (timeout_start + timeout)):
-            Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
-            if (Buy_button_Covenant_pos != None):
-                break
-
-        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
-        click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
-        click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
+        buy('covenant')
+        covenant_count=covenant_count+1
 
     else:
         print("No Covenant summons to buy.")       
 
-#checks for mystic
+#Checks for mystic
     if (Mystic_pos != None):
         time.sleep(random.uniform(0.2, 0.4))      
         print("Buy Mystic Summons.")
-	
-        #Locate buy button
-        Mystic_point=pyautogui.center(Mystic_pos)
-        click(Mystic_point[0]+800, Mystic_point[1]+40)
-        click(Mystic_point[0]+800, Mystic_point[1]+40)
-        time.sleep(random.uniform(0.2, 0.5)) #wait for confirm button
-        
-	#Confirm buy
-        timeout_start = time.time()
-        while(time.time() < (timeout_start + timeout)):
-            Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
-            if (Buy_button_Mystic_pos != None):
-                break
-
-        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
-        click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
-        click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
+        buy('mystic')
+        mystic_count=mystic_count+1
         
     else:
         print("No Mystic summons to buy.")
 
-    time.sleep(random.uniform(0.2, 0.3))
+#Scroll down
+    time.sleep(random.uniform(0.2, 0.4))
     scroll_pt_x = random.randint(1100,1550)
     scroll_pt_y = random.randint(400,680)
 
@@ -117,22 +138,8 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
     if ((Coven_pos2 != None) and (Coven_pos == None)):
         time.sleep(0.2)
         print("Buy Covenant Summons.")
-
-        #Locate buy button
-        Coven_point=pyautogui.center(Coven_pos2)
-        click(Coven_point[0]+800, Coven_point[1]+40)
-        time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
-
-        #Confirm buy
-        timeout_start = time.time() 
-        while(time.time() < (timeout_start + timeout)):
-            Buy_button_Covenant_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
-            if (Buy_button_Covenant_pos != None):
-                break
-
-        Buy_button_Covenant_point=pyautogui.center(Buy_button_Covenant_pos)
-        click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
-        click(Buy_button_Covenant_point[0]+rand_x, Buy_button_Covenant_point[1]+rand_y)
+        buy('covenant')
+        covenant_count=covenant_count+1
 	
     else:
         print("No Covenant summons to buy.")
@@ -141,25 +148,12 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
     if ((Mystic_pos2 != None) and (Mystic_pos == None)):
         time.sleep(0.2)        
         print("Buy Mystic Summons.")
+        buy('mystic')
+        mystic_count=mystic_count+1
         
-        #Locate buy button
-        Mystic_point=pyautogui.center(Mystic_pos2)
-        click(Mystic_point[0]+800, Mystic_point[1]+40)
-        time.sleep(random.uniform(0.2, 0.3)) #wait for confirm button
-
-        #Confirm Buy
-        timeout_start = time.time()
-        while(time.time() < (timeout_start + timeout)):
-            Buy_button_Mystic_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
-            if (Buy_button_Mystic_pos != None):
-                break
-
-        Buy_button_Mystic_point=pyautogui.center(Buy_button_Mystic_pos)
-        click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
-        click(Buy_button_Mystic_point[0]+rand_x, Buy_button_Mystic_point[1]+rand_y)
-	
     else:
         print("No Mystic summons to buy.")
+
         
 #Finally refreshes
     #time.sleep(random.uniform(0.2, 0.3))
@@ -167,7 +161,10 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
     debug_time_start = time.time()
     while (time.time() < debug_time_start+debug_timer):
         if (keyboard.is_pressed('q') == True):
-            quit
+            exit_flag = 1
+
+    if exit_flag == 1:
+        break
     
     RB_point=pyautogui.center(RB_pos)
     click(RB_point[0]+rand_x, RB_point[1]+rand_y)
@@ -178,11 +175,30 @@ while ((keyboard.is_pressed('q') == False) and (time.time() < start_time+run_tim
     while(time.time() < (timeout_start + timeout)):
         Confirm_pos=pyautogui.locateOnScreen('confirm_button.png', confidence=0.5)
         if (Confirm_pos != None):
+            if keyboard.is_pressed('q') == True:
+                exit_flag = 1
             break
 
 #Confirm refresh
+    if exit_flag == 1:
+        break
     Confirm_point=pyautogui.center(Confirm_pos)
     click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
     click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
+    refresh_count=refresh_count+1
     time.sleep(0.5)
-        
+
+# End of script
+time_ran = datetime.datetime.now()-start_datetime
+time_ran_mins = round(time_ran.total_seconds()/60)
+
+if (exit_flag == 1):
+    sys.stderr.write(f'\n\nMacro exited by user\n')
+else:
+    sys.stderr.write(f'\n\nMacro has finished running\n')
+    
+sys.stderr.write(f'Total time ran: {time_ran_mins} minutes and {time_ran.seconds} seconds\n\n')
+sys.stderr.write(f'Total times refreshed: {refresh_count} \nSkystones used: {refresh_count*3}\n\n')
+sys.stderr.write(f'Covenant medals bought: {covenant_count*5} \nMystic medals bought: {mystic_count*50}\n\n')
+sys.stderr.write(f'Total gold used: {covenant_count*184000 + mystic_count*280000}\n')
+
