@@ -54,7 +54,7 @@ def buy(bookmark):
 
     #if bought is not true here, something went wrong
     if (bought == False):
-        sys.exit("Bookmark found but not bought")
+        exit_flag = 1
         
 ################# HELPERS END #################
 
