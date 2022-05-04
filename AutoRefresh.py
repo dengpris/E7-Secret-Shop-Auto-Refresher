@@ -14,7 +14,6 @@ import win32api, win32con
 import sys
 
 ############### HELPER FUNCTIONS ###############
-
 def click(x,y):
     win32api.SetCursorPos((x,y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
@@ -58,7 +57,6 @@ def buy(bookmark):
         sys.exit("Bookmark found but not bought")
         
 ################# HELPERS END #################
-
 
 #BEFORE USING THE MACRO it is recommended to first test the program
 #If there are bookmarks in shop and the program does not detect it --
@@ -105,22 +103,14 @@ while ((exit_flag == 0) and (time.time() < start_time+run_timeout)):
     rand_y = random.randrange(-15, 15)
 #Checks for covenant
     if (Coven_pos) != None:       
-        print("Buy Covenant Summons.")
         buy('covenant')
-        covenant_count=covenant_count+1
-
-    else:
-        print("No Covenant summons to buy.")       
+        covenant_count=covenant_count+1  
 
 #Checks for mystic
     if (Mystic_pos != None):
         time.sleep(random.uniform(0.2, 0.4))      
-        print("Buy Mystic Summons.")
         buy('mystic')
         mystic_count=mystic_count+1
-        
-    else:
-        print("No Mystic summons to buy.")
 
 #Scroll down
     time.sleep(random.uniform(0.2, 0.4))
@@ -137,26 +127,16 @@ while ((exit_flag == 0) and (time.time() < start_time+run_timeout)):
 #Checks for covenant
     if ((Coven_pos2 != None) and (Coven_pos == None)):
         time.sleep(0.2)
-        print("Buy Covenant Summons.")
         buy('covenant')
         covenant_count=covenant_count+1
-	
-    else:
-        print("No Covenant summons to buy.")
         
 #checks for mystic
     if ((Mystic_pos2 != None) and (Mystic_pos == None)):
         time.sleep(0.2)        
-        print("Buy Mystic Summons.")
         buy('mystic')
         mystic_count=mystic_count+1
         
-    else:
-        print("No Mystic summons to buy.")
-
-        
 #Finally refreshes
-    #time.sleep(random.uniform(0.2, 0.3))
 #When testing, pause to allow user to exit
     debug_time_start = time.time()
     while (time.time() < debug_time_start+debug_timer):
@@ -197,7 +177,7 @@ if (exit_flag == 1):
 else:
     sys.stderr.write(f'\n\nMacro has finished running\n')
     
-sys.stderr.write(f'Total time ran: {time_ran_mins} minutes and {time_ran.seconds} seconds\n\n')
+sys.stderr.write(f'Total time ran: {time_ran_mins} minutes and {time_ran.seconds % 60} seconds\n\n')
 sys.stderr.write(f'Total times refreshed: {refresh_count} \nSkystones used: {refresh_count*3}\n\n')
 sys.stderr.write(f'Covenant medals bought: {covenant_count*5} \nMystic medals bought: {mystic_count*50}\n\n')
 sys.stderr.write(f'Total gold used: {covenant_count*184000 + mystic_count*280000}\n')
