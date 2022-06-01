@@ -24,4 +24,6 @@ pip install keyboard
 pip install opencv-python
 pip install pyautogui
 pip install mouse
+pip install pillow
+pip install pywin32
 ```
