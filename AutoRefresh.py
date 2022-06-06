@@ -154,9 +154,8 @@ while ((exit_flag == 0) and (time.time() < start_time+run_timeout)):
     timeout_start = time.time()
     while(time.time() < (timeout_start + timeout)):
         Confirm_pos=pyautogui.locateOnScreen('confirm_button.png', confidence=0.5)
-        if (Confirm_pos != None):
-            if keyboard.is_pressed('q') == True:
-                exit_flag = 1
+        if ((Confirm_pos == None) or (keyboard.is_pressed('q') == True)):
+            exit_flag = 1
             break
 
 #Confirm refresh
@@ -173,9 +172,9 @@ time_ran = datetime.datetime.now()-start_datetime
 time_ran_mins = round(time_ran.total_seconds()/60)
 
 if (exit_flag == 1):
-    sys.stderr.write(f'\n\nMacro exited by user\n')
+    sys.stderr.write(f'\n\nMacro has forcefully exited.\n')
 else:
-    sys.stderr.write(f'\n\nMacro has finished running\n')
+    sys.stderr.write(f'\n\nMacro has finished running.\n')
     
 sys.stderr.write(f'Total time ran: {time_ran_mins} minutes and {time_ran.seconds % 60} seconds\n\n')
 sys.stderr.write(f'Total times refreshed: {refresh_count} \nSkystones used: {refresh_count*3}\n\n')
