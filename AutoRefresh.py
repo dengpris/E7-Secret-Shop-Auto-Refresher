@@ -22,38 +22,41 @@ def click(x,y):
 
 def buy(bookmark):
     bought = False
+    pos = None
     buy_start = time.time() 
 
-    while((bought == False) and (time.time()< (buy_start + timeout))):
+    while((pos == None) and (time.time()< (buy_start + timeout))):
         if (bookmark == 'covenant'):
             pos = pyautogui.locateOnScreen('covenant.png',confidence=0.8)
         else:
             pos = pyautogui.locateOnScreen('mystic.png',confidence=0.8)
 
-        pos_point = pyautogui.center(pos)
-        #click buy
-        click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
-        click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
-        time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
+    pos_point = pyautogui.center(pos)
+    #click buy
+    click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
+    click(pos_point[0]+800+rand_x, pos_point[1]+40+rand_y)
+    time.sleep(random.uniform(0.2, 0.4)) #wait for confirm button
 
-        #Confirm buy
-        timeout_start = time.time() 
-        while(time.time() < (timeout_start + timeout)):
-            if (bookmark == 'covenant'):
-                Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.8)
-            else:
-                Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.8)
+    #Confirm buy
+    timeout_start = time.time() 
+    Buy_button_pos = None
+    while(time.time() < (timeout_start + timeout)):
+        if (bookmark == 'covenant'):
+            Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Covenant.png', confidence=0.6)
+        else:
+            Buy_button_pos=pyautogui.locateOnScreen('Buy_button_Mystic.png', confidence=0.6)
 
-            if (Buy_button_pos != None):
-                Buy_button_point=pyautogui.center(Buy_button_pos)
-                click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
-                click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
+        if (Buy_button_pos != None):
+            Buy_button_point=pyautogui.center(Buy_button_pos)
+            click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
+            click(Buy_button_point[0]+rand_x, Buy_button_point[1]+rand_y)
 
-                bought = True
-                break
+            bought = True
+            break
 
     #if bought is not true here, something went wrong
     if (bought == False):
+        global exit_flag
         exit_flag = 1
         
 ################# HELPERS END #################
@@ -153,18 +156,21 @@ while ((exit_flag == 0) and (time.time() < start_time+run_timeout)):
     
     timeout_start = time.time()
     while(time.time() < (timeout_start + timeout)):
-        Confirm_pos=pyautogui.locateOnScreen('confirm_button.png', confidence=0.5)
-        if ((Confirm_pos == None) or (keyboard.is_pressed('q') == True)):
+        Confirm_pos=pyautogui.locateOnScreen('confirm_button.png', confidence=0.8)
+        if (keyboard.is_pressed('q') == True):
             exit_flag = 1
             break
+        if (Confirm_pos != None):
+            #Confirm refresh
+            Confirm_point=pyautogui.center(Confirm_pos)
+            click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
+            click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
+            refresh_count=refresh_count+1
+            break
 
-#Confirm refresh
     if exit_flag == 1:
         break
-    Confirm_point=pyautogui.center(Confirm_pos)
-    click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
-    click(Confirm_point[0]+rand_x, Confirm_point[1]+rand_y)
-    refresh_count=refresh_count+1
+    
     time.sleep(0.5)
 
 # End of script
