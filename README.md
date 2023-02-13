@@ -1,4 +1,7 @@
 # E7 Secret Shop Auto Refresh Macro
+
+**Please note this script is no longer being maintained.**
+
 This macro helps the user refresh the Secret Shop and buy Covenant and Mystic bookmarks. The mouse clicks and delay intervals are randomized to avoid Epic Seven detecting the use of third-party software. 
 
 This code is heavily referenced from Epic_Scripted's [E7-Auto-Shop-Refresh-Custom](https://github.com/EpicScipted/E7-Auto-Shop-Refresh-Custom), as well as the [original script](https://github.com/EmaOlay/E7-Auto-Shop-Refresh) is made by EmaOlay.
